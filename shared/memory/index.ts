@@ -118,3 +118,34 @@ export function formatMessagesForAPI(messages: SessionMessage[]): Array<{role: '
             content: m.content
         }));
 }
+
+// General memory (long-term, cross-session)
+
+/**
+ * Retrieves all stored memory facts for a user from the DB.
+ */
+export async function getUserMemory(userId: string): Promise<UserMemory[]> {
+    return query<UserMemory>(
+        `SELECT * FROM user_memory WHERE user_id = $1 ORDER BY key ASC`,
+        [userId]
+    );
+}
+
+export function formatMemoryForSystemPrompt(memories: UserMemory[]): string {
+    const highConfidence = memories.filter((m) => m.confidence >= 0.7);
+    if (highConfidence.length === 0) return '';
+
+    const facts = highConfidence
+        .map((m) => ` - ${m.key}: ${m.value}`)
+        .join('\n');
+
+    return (
+        `Here is what you know about this user from previous conversations:\n${facts}\n\n` +
+        `Use this to personalise your responses naturally. ` +
+        `Do NOT explicitly say "I know you prefer X" — just apply it silently.`
+    );
+}
+
+export async function extractAndStoreMemory(userId:string, sessionId: string, messages: SessionMessage[]): Promise<void> {
+    
+}
