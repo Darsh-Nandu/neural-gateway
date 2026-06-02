@@ -86,3 +86,35 @@ export async function addMessage(
         return result.rows[0];
     });
 }
+
+export async function getSessionHistory(
+    sessionId: string,
+    windowSize: number = parseInt(process.env.SESSION_MEMORY_WINDOW ?? '20' , 10)
+): Promise<SessionMessage[]> {
+    return query<SessionMessage>(
+        `SELECT * FROM (
+            SELECT * FROM session_messages
+            WHERE session_id = $1
+            ORDER BY created_at DESC
+            LIMIT $2
+        ) sub 
+        ORDER BY created_at ASC`,
+        [sessionId, windowSize]
+    );
+}
+
+/**
+ * Converts our DB SessionMessage rows into the format Groq (OpenAI-compatible)
+ * expects: an array of { role, content } objects.
+ *
+ * We filter out 'system' role messages — those go in the separate `system` param.
+ */
+
+export function formatMessagesForAPI(messages: SessionMessage[]): Array<{role: 'user' | 'assistant'; content: string}> {
+    return messages
+        .filter((m) => m.role !== 'system')
+        .map((m) => ({
+            role: m.role as 'user' | 'assistant',
+            content: m.content
+        }));
+}
