@@ -1,0 +1,19 @@
+{
+  "name": "@neuralgateway/db",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "pg": "^8.11.3",
+    "dotenv": "^16.4.1"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.2",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2"
+  }
+}

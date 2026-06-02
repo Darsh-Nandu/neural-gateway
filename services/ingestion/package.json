@@ -1,0 +1,29 @@
+{
+  "name": "@neuralgateway/ingestion",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@neuralgateway/db": "*",
+    "@neuralgateway/types": "*",
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "pino": "^8.19.0",
+    "pino-pretty": "^11.0.0",
+    "dotenv": "^16.4.1",
+    "uuid": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^20.11.0",
+    "@types/uuid": "^9.0.8",
+    "typescript": "^5.3.3",
+    "ts-node-dev": "^2.0.0"
+  }
+}

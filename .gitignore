@@ -1,0 +1,53 @@
+# ============================================================
+# NeuralGateway — .gitignore
+# ============================================================
+
+# --- Environment & Secrets (NEVER commit these) ---
+.env
+.env.local
+.env.*.local
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- TypeScript build output ---
+dist/
+build/
+*.tsbuildinfo
+*.js.map
+*.d.ts.map
+
+# --- Logs ---
+logs/
+*.log
+
+# --- Docker local volumes (if mounted locally) ---
+postgres_data/
+redis_data/
+qdrant_data/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Editor ---
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# --- Test coverage ---
+coverage/
+.nyc_output/
+
+# --- Misc ---
+*.tgz
+.cache/
+tmp/
